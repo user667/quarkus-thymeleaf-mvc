@@ -16,8 +16,27 @@
             padding: 1%;
         }
     </style>
+    <!-- Compressed CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <!-- Compressed JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/js/foundation.min.js" integrity="sha256-pRF3zifJRA9jXGv++b06qwtSqX1byFQOLjqa2PTEb2o=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <p>hello [[${name}]] at [[${now}]]</p>
+<p>[[${now}]]</p>
+<form th:action="@{/registration}" th:object="${registration}" method="post">
+    <div>
+        <label>Birthday:</label>
+        <input type="text" name="birthday" th:value="*{birthday}" placeholder="yyyy-MM-dd"/>
+    </div>
+    <div>
+        <label>Firstname:</label>
+        <input type="text" name="firstname" th:value="*{firstname}" placeholder="string"/>
+    </div>
+    <div>
+        <label>Surname:</label>
+        <input type="text" name="surname" th:value="*{surname}" placeholder="string"/>
+    </div>
+    <button type="submit" value="Submit" class="success button">Submit</button>
+</form>
 </body>
 </html>

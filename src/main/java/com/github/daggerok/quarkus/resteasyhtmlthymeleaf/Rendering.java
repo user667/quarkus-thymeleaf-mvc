@@ -1,7 +1,5 @@
 package com.github.daggerok.quarkus.resteasyhtmlthymeleaf;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.java.Log;
 import org.jboss.resteasy.plugins.providers.html.Renderable;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
@@ -9,7 +7,6 @@ import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
-import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,7 +17,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-@Log
 @ApplicationScoped
 public class Rendering {
 
@@ -36,8 +32,12 @@ public class Rendering {
         return new ThymeleafView(templatePath, templateEngine());
     }
 
-    @RequiredArgsConstructor
     public static class ThymeleafView implements Renderable {
+
+        public ThymeleafView(String path, TemplateEngine templateEngine) {
+            this.path = path;
+            this.templateEngine = templateEngine;
+        }
 
         private final String path;
         private final TemplateEngine templateEngine;
@@ -50,7 +50,7 @@ public class Rendering {
 
         @Override
         public void render(HttpServletRequest request, HttpServletResponse response)
-                throws IOException, ServletException, WebApplicationException {
+                throws IOException, WebApplicationException {
 
             WebContext context = new WebContext(request, response, request.getServletContext());
             context.setVariables(variables);
